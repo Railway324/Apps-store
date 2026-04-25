@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartTools Hub</title>
+    <style>
+      body { top: 0 !important; }
+      .skiptranslate { display: none !important; }
+      .goog-te-banner-frame { display: none !important; }
+      #google_translate_element { display: none !important; }
+      .goog-tooltip { display: none !important; }
+      .goog-tooltip:hover { display: none !important; }
+      .goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }
+    </style>
+    <script>
+      // Clear translation cookies on load so it resets on refresh
+      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=" + window.location.hostname + ";";
+
+      // React + GT Crash Prevention
+      if (typeof Node === 'function' && Node.prototype) {
+          const originalRemoveChild = Node.prototype.removeChild;
+          Node.prototype.removeChild = function(child) {
+              if (child.parentNode !== this) {
+                  return child;
+              }
+              return originalRemoveChild.apply(this, arguments);
+          };
+
+          const originalInsertBefore = Node.prototype.insertBefore;
+          Node.prototype.insertBefore = function(newNode, referenceNode) {
+              if (referenceNode && referenceNode.parentNode !== this) {
+                  return newNode;
+              }
+              return originalInsertBefore.apply(this, arguments);
+          };
+      }
+
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en', autoDisplay: false}, 'google_translate_element');
+      }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9191994487012915" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div id="google_translate_element"></div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
